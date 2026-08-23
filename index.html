@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLOREAX2 Yönetici Paneli</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+:root{
+    --bg:#05050d;
+    --panel:#090914;
+    --panel2:#0d0b1b;
+    --border:#402080;
+    --purple:#a900ff;
+    --purple2:#7b00ff;
+    --pink:#ff4dff;
+    --text:#fff;
+    --muted:#918ca8;
+    --green:#00e878;
+    --yellow:#ffc400;
+}
+
+body{
+    background:
+        radial-gradient(circle at 70% 20%,rgba(119,0,255,.10),transparent 30%),
+        radial-gradient(circle at 30% 90%,rgba(180,0,255,.08),transparent 35%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        radial-gradient(circle,rgba(180,0,255,.6) 1px,transparent 1px);
+    background-size:180px 180px;
+    opacity:.15;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:15px;
+    top:14px;
+    bottom:14px;
+    width:254px;
+    border:1px solid #30205d;
+    border-radius:20px;
+    background:rgba(7,6,17,.94);
+    box-shadow:0 0 35px rgba(119,0,255,.08);
+    padding:20px 10px;
+    z-index:20;
+}
+
+.logo{
+    text-align:center;
+    height:140px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.crown{
+    font-size:48px;
+    color:#9b4dff;
+    text-shadow:0 0 20px #7d00ff;
+}
+
+.logo h1{
+    color:#e34dff;
+    font-size:29px;
+    text-shadow:0 0 15px #b000ff;
+}
+
+.logo p{
+    color:#d6b7ff;
+    margin-top:4px;
+}
+
+.menu{
+    margin-top:15px;
+}
+
+.menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#ddd8eb;
+    padding:14px 18px;
+    margin:3px 0;
+    border-radius:10px;
+    text-align:left;
+    font-size:16px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.menu button:hover{
+    background:rgba(137,0,255,.15);
+    color:white;
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,#8500ff,#43007e);
+    box-shadow:
+        0 0 15px rgba(160,0,255,.45),
+        inset 0 0 10px rgba(255,255,255,.08);
+    border:1px solid #a400ff;
+}
+
+.menu span{
+    display:inline-block;
+    width:35px;
+    font-size:21px;
+}
+
+.community{
+    position:absolute;
+    bottom:60px;
+    left:10px;
+    right:10px;
+    border:1px solid #34205e;
+    border-radius:14px;
+    padding:15px;
+    text-align:center;
+}
+
+.community .star{
+    font-size:43px;
+    color:#d000ff;
+    text-shadow:0 0 15px #c000ff;
+}
+
+.community h3{
+    margin:5px 0;
+}
+
+.community p{
+    color:#a997c4;
+    font-size:13px;
+}
+
+.socials{
+    margin-top:13px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    font-size:22px;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:291px;
+    margin-right:20px;
+    padding-bottom:30px;
+}
+
+.topbar{
+    height:115px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.titlearea{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.hamburger{
+    font-size:28px;
+    cursor:pointer;
+}
+
+.titlearea h1{
+    font-size:30px;
+}
+
+.titlearea p{
+    color:#b5abc9;
+    margin-top:4px;
+}
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.iconbtn{
+    position:relative;
+    width:52px;
+    height:52px;
+    border-radius:17px;
+    border:1px solid #33205b;
+    background:#080715;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.iconbtn:hover{
+    border-color:#a000ff;
+    box-shadow:0 0 18px rgba(166,0,255,.25);
+}
+
+.badge{
+    position:absolute;
+    right:-4px;
+    top:-6px;
+    background:#7417cf;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.profile{
+    min-width:195px;
+    border:1px solid #32205b;
+    border-radius:25px;
+    padding:8px 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    position:relative;
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#8a00ff,#5c14b9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.profile strong{
+    display:block;
+}
+
+.profile small{
+    color:#928aa5;
+}
+
+.profile-arrow{
+    margin-left:auto;
+}
+
+.profile-menu{
+    display:none;
+    position:absolute;
+    right:0;
+    top:65px;
+    width:180px;
+    background:#0b0916;
+    border:1px solid #5120a0;
+    border-radius:12px;
+    padding:8px;
+    z-index:50;
+    box-shadow:0 10px 40px #000;
+}
+
+.profile-menu button{
+    width:100%;
+    padding:10px;
+    border:0;
+    background:transparent;
+    color:white;
+    text-align:left;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.profile-menu button:hover{
+    background:#28094a;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-top:18px;
+}
+
+.card{
+    background:
+        linear-gradient(145deg,rgba(17,11,31,.95),rgba(5,5,14,.95));
+    border:1px solid #43218a;
+    border-radius:17px;
+    box-shadow:0 0 20px rgba(101,0,255,.05);
+}
+
+.stat{
+    min-height:144px;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.stat-icon{
+    font-size:44px;
+    filter:drop-shadow(0 0 12px #9d00ff);
+}
+
+.stat h2{
+    font-size:31px;
+}
+
+.stat p{
+    color:#aaa0bb;
+    margin-top:8px;
+}
+
+.change{
+    text-align:right;
+    color:#d237ff;
+    font-size:14px;
+    margin-top:8px;
+}
+
+/* CONTENT */
+
+.content{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:22px;
+    margin-top:28px;
+}
+
+.left,.right{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+/* CREATE */
+
+.create{
+    padding:24px;
+}
+
+.section-title{
+    color:#c14aff;
+    font-size:22px;
+    margin-bottom:24px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:9px;
+    color:#eee;
+}
+
+.form-group label span{
+    color:#d638ff;
+    margin-right:7px;
+}
+
+.input{
+    width:100%;
+    background:#0a0916;
+    color:white;
+    border:1px solid #292044;
+    outline:none;
+    border-radius:11px;
+    padding:15px 17px;
+    font-size:15px;
+}
+
+.input:focus{
+    border-color:#a000ff;
+    box-shadow:0 0 15px rgba(170,0,255,.15);
+}
+
+.primary{
+    width:100%;
+    padding:15px;
+    border:1px solid #ef43ff;
+    border-radius:11px;
+    background:linear-gradient(90deg,#7300d9,#b500ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(171,0,255,.3);
+    transition:.2s;
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 30px rgba(200,0,255,.5);
+}
+
+/* WINNER */
+
+.winner{
+    padding:23px;
+    min-height:205px;
+    position:relative;
+    overflow:hidden;
+}
+
+.winner h2{
+    color:#ffd000;
+    margin-bottom:25px;
+}
+
+.winner-content{
+    text-align:center;
+}
+
+#winnerText{
+    font-size:19px;
+    color:#bbb2cb;
+}
+
+#winnerName{
+    font-size:34px;
+    font-weight:bold;
+    color:#d44aff;
+    margin:15px 0;
+    text-shadow:0 0 20px #8d00ff;
+}
+
+#chooseBtn{
+    max-width:340px;
+    margin:auto;
+}
+
+/* PARTICIPANTS */
+
+.participants{
+    padding:22px;
+    min-height:680px;
+}
+
+.participant-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.participant-count{
+    background:#1b0b30;
+    border:1px solid #3b1768;
+    border-radius:9px;
+    padding:8px 12px;
+    color:#d7a9ff;
+}
+
+.search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:17px;
+}
+
+.search{
+    flex:1;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    background:#0b0a17;
+    border:1px solid #292044;
+    border-radius:11px;
+    padding:15px 45px 15px 17px;
+    color:white;
+    outline:none;
+}
+
+.search-icon{
+    position:absolute;
+    right:15px;
+    top:12px;
+    font-size:22px;
+}
+
+.filter{
+    width:130px;
+    border:1px solid #a000ff;
+    background:#150923;
+    color:#d99bff;
+    border-radius:11px;
+    cursor:pointer;
+}
+
+.list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-height:515px;
+    overflow-y:auto;
+    padding-right:5px;
+}
+
+.user{
+    background:linear-gradient(90deg,#0b0a16,#0c0a18);
+    border:1px solid #211a38;
+    border-radius:11px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.user:hover{
+    border-color:#7121a9;
+}
+
+.online{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#00ed86;
+    box-shadow:0 0 10px #00ed86;
+}
+
+.user-info{
+    flex:1;
+}
+
+.user-info strong{
+    display:block;
+    font-size:17px;
+}
+
+.user-info small{
+    color:#91879e;
+    margin-top:5px;
+    display:block;
+}
+
+.number{
+    color:#c847ff;
+    font-weight:bold;
+    font-size:17px;
+}
+
+.show-all{
+    margin-top:15px;
+    width:100%;
+    padding:14px;
+    background:#0d0b19;
+    color:white;
+    border:1px solid #251b3d;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#100b1b;
+    border:1px solid #a000ff;
+    border-radius:12px;
+    padding:15px 20px;
+    box-shadow:0 0 30px rgba(150,0,255,.35);
+    transform:translateY(120px);
+    opacity:0;
+    transition:.3s;
+    z-index:100;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* TIMER */
+
+.timer{
+    color:#c94dff !important;
+    font-weight:bold;
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+    .sidebar{
+        width:80px;
+    }
+
+    .logo h1,
+    .logo p,
+    .menu button:not(.active) span + *,
+    .community{
+        display:none;
+    }
+
+    .logo{
+        height:90px;
+    }
+
+    .logo .crown{
+        font-size:35px;
+    }
+
+    .menu button{
+        text-align:center;
+        padding:14px 5px;
+    }
+
+    .menu span{
+        width:auto;
+    }
+
+    .main{
+        margin-left:105px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .content{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin:0 12px;
+    }
+
+    .topbar{
+        height:90px;
+    }
+
+    .titlearea h1{
+        font-size:22px;
+    }
+
+    .titlearea p{
+        display:none;
+    }
+
+    .actions .profile{
+        min-width:auto;
+    }
+
+    .profile div:nth-child(2),
+    .profile-arrow{
+        display:none;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .content{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="crown">♕</div>
+        <h1>FLOREAX2</h1>
+        <p>ADMIN PANELİ</p>
+    </div>
+
+    <div class="menu">
+
+        <button class="active" onclick="showPage('Dashboard',this)">
+            <span>⌂</span> Dashboard
+        </button>
+
+        <button onclick="showPage('Çekilişler',this)">
+            <span>🎁</span> Çekilişler
+        </button>
+
+        <button onclick="showPage('Katılımcılar',this)">
+            <span>♧</span> Katılımcılar
+        </button>
+
+        <button onclick="showPage('Kazananlar',this)">
+            <span>🏆</span> Kazananlar
+        </button>
+
+        <button onclick="showPage('İstatistikler',this)">
+            <span>▥</span> İstatistikler
+        </button>
+
+        <button onclick="showPage('Ayarlar',this)">
+            <span>⚙</span> Ayarlar
+        </button>
+
+        <button onclick="logout()">
+            <span>⇥</span> Çıkış Yap
+        </button>
+
+    </div>
+
+    <div class="community">
+        <div class="star">☆</div>
+        <h3>Floreax2 Topluluğu</h3>
+        <p>Sınırları zorluyoruz!</p>
+
+        <div class="socials">
+            <span>◈</span>
+            <span>🟩</span>
+            <span>◉</span>
+            <span>♥</span>
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div class="titlearea">
+            <div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Hoş geldin, Admin! 👋</p>
+            </div>
+        </div>
+
+        <div class="actions">
+
+            <button class="iconbtn" onclick="toggleTheme()">◐</button>
+
+            <button class="iconbtn" onclick="notifications()">
+                ♧
+                <span class="badge">3</span>
+            </button>
+
+            <div class="profile" onclick="toggleProfile()">
+
+                <div class="avatar">👤</div>
+
+                <div>
+                    <strong>Admin</strong>
+                    <small>Yönetici</small>
+                </div>
+
+                <div class="profile-arrow">⌄</div>
+
+                <div class="profile-menu" id="profileMenu">
+                    <button onclick="profileAction('Profil')">👤 Profil</button>
+                    <button onclick="profileAction('Ayarlar')">⚙ Ayarlar</button>
+                    <button onclick="logout()">⇥ Çıkış Yap</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+        <div class="card stat">
+            <div class="stat-icon">♧</div>
+            <div>
+                <h2 id="totalCount">125</h2>
+                <p>Toplam Katılımcı</p>
+                <div class="change">↑ 12%</div>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">🎁</div>
+            <div>
+                <h2 id="activeGiveaways">2</h2>
+                <p>Aktif Çekiliş</p>
+                <div class="change">↑ 5%</div>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">🏆</div>
+            <div>
+                <h2 id="lastWinner">Floreax2</h2>
+                <p>Son Kazanan</p>
+                <div class="change">2 saat önce</div>
+            </div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-icon">◷</div>
+            <div>
+                <h2 id="timerStat">08:32</h2>
+                <p>Kalan Süre</p>
+                <div class="change">Aktif Çekiliş</div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+        <div class="left">
+
+            <!-- CREATE GIVEAWAY -->
+
+            <div class="card create">
+
+                <h2 class="section-title">⊕ &nbsp;Yeni Çekiliş Oluştur</h2>
+
+                <div class="form-group">
+                    <label><span>◇</span> Çekiliş Adı</label>
+                    <input id="giveawayName"
+                           class="input"
+                           placeholder="Örn: 100 TL Steam Kodu">
+                </div>
+
+                <div class="form-group">
+                    <label><span>🎁</span> Ödül</label>
+                    <input id="giveawayPrize"
+                           class="input"
+                           placeholder="Örn: Steam Cüzdan Kodu">
+                </div>
+
+                <div class="form-group">
+                    <label><span>◷</span> Süre (Dakika)</label>
+                    <input id="giveawayTime"
+                           class="input"
+                           type="number"
+                           placeholder="Örn: 10"
+                           min="1">
+                </div>
+
+                <button class="primary" onclick="startGiveaway()">
+                    🚀 &nbsp; ÇEKİLİŞİ BAŞLAT
+                </button>
+
+            </div>
+
+
+            <!-- WINNER -->
+
+            <div class="card winner">
+
+                <h2>🏆 &nbsp;Kazanan</h2>
+
+                <div class="winner-content">
+
+                    <div id="winnerText">
+                        Henüz kazanan seçilmedi.
+                    </div>
+
+                    <div id="winnerName">
+                        ?
+                    </div>
+
+                    <p style="color:#a59ab5;margin-bottom:18px;">
+                        Çekiliş başladıktan sonra kazananı seçebilirsiniz.
+                    </p>
+
+                    <button id="chooseBtn"
+                            class="primary"
+                            onclick="chooseWinner()">
+                        🚀 &nbsp; KAZANANI SEÇ
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PARTICIPANTS -->
+
+        <div class="right">
+
+            <div class="card participants">
+
+                <div class="participant-head">
+                    <h2 class="section-title" style="margin:0">
+                        ♧ &nbsp;Katılımcılar
+                    </h2>
+
+                    <div class="participant-count">
+                        Toplam: <span id="participantNumber">125</span>
+                    </div>
+                </div>
+
+
+                <div class="search-row">
+
+                    <div class="search">
+                        <input id="search"
+                               placeholder="Katılımcı ara..."
+                               oninput="searchParticipants()">
+
+                        <span class="search-icon">⌕</span>
+                    </div>
+
+                    <button class="filter" onclick="filterParticipants()">
+                        ⚱ Filtrele
+                    </button>
+
+                </div>
+
+
+                <div class="list" id="participantList">
+                </div>
+
+
+                <button class="show-all"
+                        onclick="showAllParticipants()">
+                    Tümünü Görüntüle　⌄
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   VERİLER
+========================================= */
+
+let participants = JSON.parse(
+    localStorage.getItem("floreaxParticipants")
+) || [
+    {name:"Floreax2",time:"18:24:32"},
+    {name:"OyuncuTR",time:"18:24:35"},
+    {name:"Aaa",time:"18:24:37"},
+    {name:"Berke35",time:"18:24:40"},
+    {name:"MertKick",time:"18:24:43"},
+    {name:"DarkPlayer",time:"18:24:47"},
+    {name:"Nexa",time:"18:24:50"},
+    {name:"MinecraftTR",time:"18:24:54"}
+];
+
+let giveaway = JSON.parse(
+    localStorage.getItem("floreaxGiveaway")
+) || null;
+
+let countdownInterval = null;
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function toast(message){
+
+    const box = document.getElementById("toast");
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+    setTimeout(()=>{
+        box.classList.remove("show");
+    },2500);
+}
+
+
+/* =========================================
+   KATILIMCILAR
+========================================= */
+
+function saveParticipants(){
+
+    localStorage.setItem(
+        "floreaxParticipants",
+        JSON.stringify(participants)
+    );
+}
+
+
+function renderParticipants(data = participants){
+
+    const list =
+        document.getElementById("participantList");
+
+    list.innerHTML = "";
+
+    data.forEach((user,index)=>{
+
+        const item = document.createElement("div");
+
+        item.className = "user";
+
+        item.innerHTML = `
+            <div class="online"></div>
+
+            <div class="user-info">
+                <strong>${escapeHTML(user.name)}</strong>
+                <small>Katıldı: ${user.time}</small>
+            </div>
+
+            <div class="number">
+                #${index+1}
+            </div>
+        `;
+
+        list.appendChild(item);
+
+    });
+
+    document.getElementById("totalCount")
+        .textContent = participants.length;
+
+    document.getElementById("participantNumber")
+        .textContent = participants.length;
+}
+
+
+function escapeHTML(text){
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* =========================================
+   ARAMA
+========================================= */
+
+function searchParticipants(){
+
+    const value =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    const filtered =
+        participants.filter(user =>
+            user.name.toLowerCase().includes(value)
+        );
+
+    renderParticipants(filtered);
+}
+
+
+/* =========================================
+   FİLTRE
+========================================= */
+
+let filterMode = false;
+
+function filterParticipants(){
+
+    filterMode = !filterMode;
+
+    if(filterMode){
+
+        const filtered =
+            participants.filter((_,i)=>i%2===0);
+
+        renderParticipants(filtered);
+
+        toast("Filtre aktif");
+
+    }else{
+
+        renderParticipants();
+
+        toast("Filtre kapatıldı");
+    }
+}
+
+
+function showAllParticipants(){
+
+    document.getElementById("search").value = "";
+
+    filterMode = false;
+
+    renderParticipants();
+
+    toast("Tüm katılımcılar gösteriliyor");
+}
+
+
+/* =========================================
+   ÇEKİLİŞ BAŞLAT
+========================================= */
+
+function startGiveaway(){
+
+    const name =
+        document.getElementById("giveawayName").value.trim();
+
+    const prize =
+        document.getElementById("giveawayPrize").value.trim();
+
+    const minutes =
+        Number(document.getElementById("giveawayTime").value);
+
+    if(!name){
+
+        toast("⚠ Çekiliş adını gir!");
+
+        return;
+    }
+
+    if(!prize){
+
+        toast("⚠ Ödülü gir!");
+
+        return;
+    }
+
+    if(!minutes || minutes < 1){
+
+        toast("⚠ Geçerli bir süre gir!");
+
+        return;
+    }
+
+
+    giveaway = {
+
+        name:name,
+
+        prize:prize,
+
+        end:
+            Date.now() + minutes * 60 * 1000,
+
+        active:true
+
+    };
+
+
+    localStorage.setItem(
+        "floreaxGiveaway",
+        JSON.stringify(giveaway)
+    );
+
+
+    document.getElementById("activeGiveaways")
+        .textContent = "1";
+
+
+    document.getElementById("winnerText")
+        .textContent =
+        "Çekiliş başladı!";
+
+
+    document.getElementById("winnerName")
+        .textContent = "?";
+
+
+    startCountdown();
+
+    toast("🚀 Çekiliş başarıyla başladı!");
+
+}
+
+
+/* =========================================
+   GERİ SAYIM
+========================================= */
+
+function startCountdown(){
+
+    clearInterval(countdownInterval);
+
+    if(!giveaway || !giveaway.active)
+        return;
+
+
+    function update(){
+
+        const remaining =
+            giveaway.end - Date.now();
+
+
+        if(remaining <= 0){
+
+            clearInterval(countdownInterval);
+
+            giveaway.active = false;
+
+            localStorage.setItem(
+                "floreaxGiveaway",
+                JSON.stringify(giveaway)
+            );
+
+            document.getElementById("timerStat")
+                .textContent = "00:00";
+
+            document.getElementById("activeGiveaways")
+                .textContent = "0";
+
+            toast("⏰ Çekiliş süresi doldu!");
+
+            return;
+        }
+
+
+        const totalSeconds =
+            Math.floor(remaining / 1000);
+
+        const minutes =
+            Math.floor(totalSeconds / 60);
+
+        const seconds =
+            totalSeconds % 60;
+
+
+        const text =
+            String(minutes).padStart(2,"0")
+            + ":" +
+            String(seconds).padStart(2,"0");
+
+
+        document.getElementById("timerStat")
+            .textContent = text;
+
+    }
+
+
+    update();
+
+    countdownInterval =
+        setInterval(update,1000);
+}
+
+
+/* =========================================
+   KAZANAN SEÇ
+========================================= */
+
+function chooseWinner(){
+
+    if(participants.length === 0){
+
+        toast("⚠ Katılımcı bulunamadı!");
+
+        return;
+    }
+
+    if(!giveaway){
+
+        toast("⚠ Önce bir çekiliş oluştur!");
+
+        return;
+    }
+
+
+    const winner =
+        participants[
+            Math.floor(Math.random()*participants.length)
+        ];
+
+
+    document.getElementById("winnerText")
+        .textContent =
+        "🎉 Kazanan belli oldu!";
+
+
+    document.getElementById("winnerName")
+        .textContent =
+        winner.name;
+
+
+    document.getElementById("lastWinner")
+        .textContent =
+        winner.name;
+
+
+    giveaway.active = false;
+
+
+    localStorage.setItem(
+        "floreaxGiveaway",
+        JSON.stringify(giveaway)
+    );
+
+
+    document.getElementById("activeGiveaways")
+        .textContent = "0";
+
+
+    clearInterval(countdownInterval);
+
+
+    toast("🏆 Kazanan: " + winner.name);
+
+}
+
+
+/* =========================================
+   SAYFA MENÜLERİ
+========================================= */
+
+function showPage(page,button){
+
+    document.getElementById("pageTitle")
+        .textContent = page;
+
+
+    document.querySelectorAll(".menu button")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+
+    button.classList.add("active");
+
+
+    if(page === "Dashboard"){
+
+        toast("Dashboard açıldı");
+
+    }else{
+
+        toast(page + " bölümü seçildi");
+    }
+
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+function toggleSidebar(){
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    if(sidebar.style.display === "none"){
+
+        sidebar.style.display = "block";
+
+    }else{
+
+        sidebar.style.display = "none";
+
+        document.querySelector(".main")
+            .style.marginLeft = "20px";
+    }
+
+}
+
+
+/* =========================================
+   TEMA
+========================================= */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light");
+
+    if(document.body.classList.contains("light")){
+
+        document.body.style.background = "#eeeafa";
+        document.body.style.color = "#111";
+
+        toast("☀ Açık tema");
+
+    }else{
+
+        document.body.style.background = "";
+
+        document.body.style.color = "";
+
+        toast("🌙 Koyu tema");
+    }
+
+}
+
+
+/* =========================================
+   BİLDİRİMLER
+========================================= */
+
+function notifications(){
+
+    toast("🔔 3 yeni bildirimin var!");
+
+}
+
+
+/* =========================================
+   PROFİL
+========================================= */
+
+function toggleProfile(){
+
+    const menu =
+        document.getElementById("profileMenu");
+
+    menu.style.display =
+        menu.style.display === "block"
+        ? "none"
+        : "block";
+}
+
+
+function profileAction(action){
+
+    toast(action + " açıldı");
+
+}
+
+
+/* =========================================
+   ÇIKIŞ
+========================================= */
+
+function logout(){
+
+    const ok =
+        confirm("Çıkış yapmak istediğine emin misin?");
+
+    if(ok){
+
+        toast("Çıkış yapıldı");
+
+        setTimeout(()=>{
+            alert("Admin panelinden çıkış yapıldı.");
+        },500);
+
+    }
+
+}
+
+
+/* =========================================
+   SAYFA AÇILINCA
+========================================= */
+
+renderParticipants();
+
+
+if(giveaway && giveaway.active){
+
+    startCountdown();
+
+    document.getElementById("activeGiveaways")
+        .textContent = "1";
+
+}
+
+
+/* =========================================
+   ÖRNEK KATILIMCI EKLEME
+   Tarayıcı konsolundan:
+   addParticipant("YeniOyuncu")
+========================================= */
+
+function addParticipant(name){
+
+    if(!name || !name.trim())
+        return;
+
+
+    const now = new Date();
+
+    const time =
+        now.toLocaleTimeString("tr-TR",{
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit"
+        });
+
+
+    participants.push({
+        name:name.trim(),
+        time:time
+    });
+
+
+    saveParticipants();
+
+    renderParticipants();
+
+    toast("👤 " + name + " çekilişe katıldı!");
+
+}
+
+
+/* KONSOLDAN KULLANILABİLİR */
+window.addParticipant = addParticipant;
+
+</script>
+
+</body>
+</html>
